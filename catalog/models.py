@@ -22,7 +22,7 @@ class Book(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     rating = models.FloatField()
     authors = models.ManyToManyField(Author)
-    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
+    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, blank=True, null=True)
     pubdate = models.DateField()
 
     def __str__(self):
