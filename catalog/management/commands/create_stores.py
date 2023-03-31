@@ -1,11 +1,12 @@
-from django.core.management.base import BaseCommand
-from catalog.models import Store, Book
-
 import random
+
+from catalog.models import Book, Store
+
+from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    help = 'Creates stores for database (from 10 to 1000)'
+    help = 'Creates stores for database (from 10 to 1000)'  # noqa: A003
 
     def add_arguments(self, parser):
         parser.add_argument('quantity', type=int, choices=range(10, 1001))

@@ -1,6 +1,6 @@
-from django.contrib import admin  # noqa: F401
+from django.contrib import admin
 
-from .models import Author, Publisher, Book, Store  # noqa: F401
+from .models import Author, Book, Publisher, Store  # noqa: F401
 
 
 class BookAdmin(admin.ModelAdmin):

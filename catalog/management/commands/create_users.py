@@ -1,12 +1,12 @@
 from django.contrib.auth import get_user_model
-from django.core.management.base import BaseCommand
 from django.contrib.auth.hashers import make_password
+from django.core.management.base import BaseCommand
 
 User = get_user_model()
 
 
 class Command(BaseCommand):
-    help = 'Creates users for database (from 100 to 1000).'
+    help = 'Creates users for database (from 100 to 1000).'  # noqa: A003
 
     def add_arguments(self, parser):
         parser.add_argument('quantity', type=int, choices=range(100, 1001))

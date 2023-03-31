@@ -1,13 +1,16 @@
-from django.core.management.base import BaseCommand
-from catalog.models import Book, Author, Publisher
 import random
+
+from catalog.models import Author, Book, Publisher
+
+from django.core.management.base import BaseCommand
+
 from faker import Faker
 
 fake = Faker()
 
 
 class Command(BaseCommand):
-    help = 'Creates books for database (from 100 to 1000). ! You need to create authors and publishers first !'
+    help = 'Creates books for database (from 100 to 1000).You need to create authors and publishers first'  # noqa: A003
 
     def add_arguments(self, parser):
         parser.add_argument('quantity', type=int, choices=range(100, 1001))
