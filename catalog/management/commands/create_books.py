@@ -32,7 +32,7 @@ class Command(BaseCommand):
 
         Book.objects.bulk_create(books_list)
         books_count = Book.objects.count()
-        for book_num in range(1, books_count):
+        for book_num in range(1, books_count+1):
             book = Book.objects.get(id=book_num)
             author = Author.objects.get(id=random.randrange(1, authors_count))
             book.authors.add(author)
