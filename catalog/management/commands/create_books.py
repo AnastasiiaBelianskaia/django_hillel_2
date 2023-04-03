@@ -29,10 +29,9 @@ class Command(BaseCommand):
                                    pubdate=fake.date_between(start_date='-200y', end_date='-1y'),
                                    publisher_id=publisher.id,
                                    ))
-
         Book.objects.bulk_create(books_list)
         books_count = Book.objects.count()
-        for book_num in range(1, books_count+1):
+        for book_num in range(1, books_count + 1):
             book = Book.objects.get(id=book_num)
             author = Author.objects.get(id=random.randrange(1, authors_count))
             book.authors.add(author)

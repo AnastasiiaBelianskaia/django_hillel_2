@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <span>Details for {{ author.name }}</span>
+  <p>Number of books above 500 pages: {{ gt_500_pages }}</p>
+  <p>Number of books below 500 pages: {{ lte_500_pages }}</p>
+  <ul>
+      <li>Name: {{ author.name }} </li>
+      <li>Age: {{ author.age }}</li>
+      {% if books %}
+          <li>Books: {{ books }}</li>
+      {% else %}
+          <p>There are no books for this author</p>
+      {% endif %}
+  </ul>
+
+  <a href="{% url 'catalog:authors' %}">Go to authors list</a><br>
+  <a href="{% url 'catalog:index' %}">Go to Main</a>
+</body>
+</html>

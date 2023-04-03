@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table, th, td {
+          border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+  <a href="{% url 'catalog:index' %}">Go to Main</a><br>
+
+  <p>Average authors age: {{ average_age_rounded }}</p>
+  <p>Oldest book in collection: {{ oldest_book.oldest_book }}</p>
+  <span>All authors:</span>
+
+  <table style="width:100%">
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Books</th>
+  </tr>
+  {% for author in authors %}
+  <tr>
+    <td>
+        <a href="{% url 'catalog:author_details' pk=author.id %}">{{ author.name }}</a>
+    </td>
+    <td>{{ author.age }}</td>
+    <td>
+        {% if author.books %}
+          {{ author.books }}
+        {% else %}
+          <span>No books for this author</span>
+        {% endif %}
+    </td>
+  </tr>
+   {% endfor %}
+</table>
+</body>
+</html>
