@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table, th, td {
+          border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+  <a href="{% url 'catalog:index' %}">Go to Main</a><br>
+
+  <p>Number of books: {{ books_count }}</p>
+  <p>Average price: {{ avg_price_rounded }}</p>
+  <p>Max number of pages among books: {{ pages_values.pages__max }}</p>
+  <p>Min number of pages among books: {{ pages_values.pages__min }}</p>
+
+  <span>All books:</span>
+
+   <table style="width:100%">
+  <tr>
+    <th>Name</th>
+    <th>Store</th>
+    <th>Authors</th>
+    <th>Publisher</th>
+    <th>Pubdate</th>
+    <th>Rating</th>
+    <th>Price</th>
+  </tr>
+  {% for book in books %}
+          <tr>
+            <td>
+                <a href="{% url 'catalog:book_details' pk=book.id %}">{{ book.name }}</a>
+            </td>
+              <td>
+              {% if book.stores %}
+                  {{ book.stores }}
+              {% else %}
+                  <span>No store</span>
+              {% endif %}
+              </td>
+            <td>{{ book.authors }}</td>
+            <td>{{ book.publisher }}</td>
+            <td>{{ book.pubdate }}</td>
+            <td>{{ book.rating }}</td>
+            <td>{{ book.price }}</td>
+          </tr>
+  {% endfor %}
+</table>
+</body>
+</html>

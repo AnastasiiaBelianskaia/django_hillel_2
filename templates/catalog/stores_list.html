@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table, th, td {
+          border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+  <a href="{% url 'catalog:index' %}">Go to Main</a><br>
+
+  <span>All stores:</span>
+
+  <table style="width:100%">
+  <tr>
+    <th>Name</th>
+    <th>Books</th>
+  </tr>
+  {% for store in stores %}
+  <tr>
+    <td><a href="{% url 'catalog:store_details' pk=store.id %}">{{ store.name }}</a></td>
+    <td>{{ store.books }}</td>
+  </tr>
+  {% endfor %}
+</table>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <span>Details for {{ store.name }}</span>
+  <ul>
+      <li>Name: {{ store.name }} </li>
+
+      {% if books_avg_price %}
+        <li>Average price in this store: {{ books_avg_price }}</li>
+      {% endif %}
+
+      {% for book in store.books.all %}
+      <li>Books: {{ book.name }}</li>
+      {% endfor %}
+  </ul>
+
+  <a href="{% url 'catalog:stores' %}">Go to stores list</a><br>
+  <a href="{% url 'catalog:index' %}">Go to Main</a>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <span>Details for {{ publisher.name }}</span>
+  {% if books_avg_rating %}
+      <p>Books average rating for {{ publisher.name }}: {{ books_avg_rating }}</p>
+  {% else %}
+      <p>There is no average book rating for {{ publisher.name }}</p>
+  {% endif %}
+  <ul>
+      <li>Name: {{ publisher.name }} </li>
+      {% if books %}
+        <li>Books: {{ books }}</li>
+      {% else %}
+        <p>This publisher has no published books</p>
+      {% endif %}
+  </ul>
+
+  <a href="{% url 'catalog:publishers' %}">Go to publishers list</a><br>
+  <a href="{% url 'catalog:index' %}">Go to Main</a>
+</body>
+</html>

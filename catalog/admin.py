@@ -24,7 +24,6 @@ class BookAdmin(admin.ModelAdmin):
 
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('name', 'age', 'display_books')
-    date_hierarchy = 'book__pubdate'
 
 
 class PublisherAdmin(admin.ModelAdmin):
