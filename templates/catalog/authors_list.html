@@ -12,8 +12,10 @@
 <body>
   <a href="{% url 'catalog:index' %}">Go to Main</a><br>
 
-  <p>Average authors age: {{ average_age_rounded }}</p>
-  <p>Oldest book in collection: {{ oldest_book.oldest_book }}</p>
+      <p>Average authors age: {{ aggr_values.age__avg }}</p>
+      <p>Oldest book in collection: {{ aggr_values.books__pubdate__min}}</p>
+
+
   <span>All authors:</span>
 
   <table style="width:100%">
@@ -29,11 +31,11 @@
     </td>
     <td>{{ author.age }}</td>
     <td>
-        {% if author.books %}
-          {{ author.books }}
-        {% else %}
+        {% for book in author.books.all %}
+          {{ book.name }}
+        {% empty %}
           <span>No books for this author</span>
-        {% endif %}
+        {% endfor %}
     </td>
   </tr>
    {% endfor %}

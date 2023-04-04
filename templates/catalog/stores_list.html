@@ -22,7 +22,13 @@
   {% for store in stores %}
   <tr>
     <td><a href="{% url 'catalog:store_details' pk=store.id %}">{{ store.name }}</a></td>
-    <td>{{ store.books }}</td>
+    <td>
+      {% for book in store.books.all %}
+        {{ book.name }}
+      {% empty %}
+        <span>No books in this store</span>
+      {% endfor %}
+    </td>
   </tr>
   {% endfor %}
 </table>

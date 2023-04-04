@@ -6,8 +6,8 @@
 </head>
 <body>
   <span>Details for {{ author.name }}</span>
-  <p>Number of books above 500 pages: {{ gt_500_pages }}</p>
-  <p>Number of books below 500 pages: {{ lte_500_pages }}</p>
+  <p>Number of books above 500 pages: {{ author.above_500_pages }}</p>
+  <p>Number of books below 500 pages: {{ author.below_500_pages }}</p>
   <ul>
       <li>Name: {{ author.name }} </li>
       <li>Age: {{ author.age }}</li>

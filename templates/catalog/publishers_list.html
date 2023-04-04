@@ -23,11 +23,11 @@
   <tr>
     <td><a href="{% url 'catalog:publisher_details' pk=publisher.id %}">{{ publisher.name }}</a></td>
     <td>
-        {% if publisher.books %}
-          {{ publisher.books }}
-        {% else %}
+        {% for book in publisher.books.all %}
+          {{ book.name }}
+        {% empty %}
           <span>No books</span>
-        {% endif %}
+        {% endfor %}
     </td>
   </tr>
   {% endfor %}

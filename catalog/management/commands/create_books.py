@@ -18,22 +18,17 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         quantity = kwargs['quantity']
         books_list = []
-        publishers_count = Publisher.objects.count()
-        authors_count = Author.objects.count()
         for number in range(quantity):
-            publisher = Publisher.objects.get(id=random.randrange(1, publishers_count))
             books_list.append(Book(name=f"Book{number}",
                                    pages=random.randrange(200, 800),
                                    price=round(random.uniform(100, 3000), 2),
                                    rating=round(random.uniform(1, 10), 1),
                                    pubdate=fake.date_between(start_date='-200y', end_date='-1y'),
-                                   publisher_id=publisher.id,
+                                   publisher_id=Publisher.objects.values_list("id", flat=True).order_by('?'),
                                    ))
         Book.objects.bulk_create(books_list)
-        books_count = Book.objects.count()
-        for book_num in range(1, books_count + 1):
+        for book_num in Book.objects.values_list("id", flat=True):
             book = Book.objects.get(id=book_num)
-            author = Author.objects.get(id=random.randrange(1, authors_count))
-            book.authors.add(author)
+            book.authors.set(Author.objects.values_list("id", flat=True).order_by('?')[:random.randint(1, 3)])
 
         self.stdout.write(f"{quantity} books have been created in database!")

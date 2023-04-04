@@ -9,13 +9,16 @@
   <ul>
       <li>Name: {{ store.name }} </li>
 
-      {% if books_avg_price %}
-        <li>Average price in this store: {{ books_avg_price }}</li>
+      {% if store.average_price %}
+        <li>Average price in this store: {{ store.average_price|floatformat:2 }}</li>
       {% endif %}
-
+      <li>Books:
       {% for book in store.books.all %}
-      <li>Books: {{ book.name }}</li>
+         {{ book.name }}
+      {% empty %}
+          <span>No books in this store</span>
       {% endfor %}
+      </li>
   </ul>
 
   <a href="{% url 'catalog:stores' %}">Go to stores list</a><br>

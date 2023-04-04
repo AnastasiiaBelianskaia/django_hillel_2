@@ -11,11 +11,11 @@
       <li>Pages: {{ book.pages }}</li>
       <li>Price: {{ book.price }}</li>
       <li>Rating: {{ book.rating }}</li>
-
+      <li>Authors:
       {% for author in book.authors.all %}
-      <li>Authors: {{ author.name }}</li>
+         {{ author.name }}
       {% endfor %}
-
+      </li>
       <li>Publisher: {{ book.publisher }}</li>
       <li>Pubdate: {{ book.pubdate }}</li>
   </ul>

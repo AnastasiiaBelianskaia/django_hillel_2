@@ -6,8 +6,8 @@
 </head>
 <body>
   <span>Details for {{ publisher.name }}</span>
-  {% if books_avg_rating %}
-      <p>Books average rating for {{ publisher.name }}: {{ books_avg_rating }}</p>
+  {% if publisher.average_rating %}
+      <p>Books average rating for {{ publisher.name }}: {{ publisher.average_rating|floatformat:2 }}</p>
   {% else %}
       <p>There is no average book rating for {{ publisher.name }}</p>
   {% endif %}
