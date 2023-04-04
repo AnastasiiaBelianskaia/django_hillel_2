@@ -44,7 +44,7 @@ def books(request):
     avg_price_rounded = round(Book.objects.aggregate(Avg('price'))['price__avg'])
     pages_values = Book.objects.aggregate(Max('pages'), Min('pages'))
     all_books = Book.objects.prefetch_related('authors', 'stores')
-    queryset = Book.objects.select_related('publisher').all()
+    books_publishers = Book.objects.select_related('publisher').all()
     books_values_list = []
     for book in all_books:
         all_authors = [authors.name for authors in book.authors.all()]
@@ -57,7 +57,7 @@ def books(request):
                                   'stores': all_stores,
                                   'id': book.id})
     element_index = 0
-    for book in queryset:
+    for book in books_publishers:
         books_values_list[element_index].update({'publisher': book.publisher.name})
         element_index += 1
 

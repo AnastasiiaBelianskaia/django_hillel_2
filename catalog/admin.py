@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Author, Book, Publisher, Store  # noqa: F401
+from .models import Author, Book, Publisher, Store
 
 
 class BooksInLine(admin.TabularInline):
@@ -9,6 +9,7 @@ class BooksInLine(admin.TabularInline):
 
 class BookAdmin(admin.ModelAdmin):
     list_display = ('name', 'display_authors', 'pubdate', 'pages', 'price', 'rating', 'publisher')
+    raw_id_fields = ('publisher',)
     search_fields = ['name', 'authors__name', 'publisher__name']
     search_help_text = 'Search by title, author or publisher'
     date_hierarchy = 'pubdate'
