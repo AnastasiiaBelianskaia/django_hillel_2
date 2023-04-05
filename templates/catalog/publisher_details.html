@@ -13,11 +13,13 @@
   {% endif %}
   <ul>
       <li>Name: {{ publisher.name }} </li>
-      {% if books %}
-        <li>Books: {{ books }}</li>
-      {% else %}
-        <p>This publisher has no published books</p>
-      {% endif %}
+       <li>Books:
+      {% for book in publisher.books.all %}
+         {{ book }}{% if not forloop.last %}, {% endif %}
+      {% empty %}
+         No books for this publisher
+      {% endfor %}
+      </li>
   </ul>
 
   <a href="{% url 'catalog:publishers' %}">Go to publishers list</a><br>

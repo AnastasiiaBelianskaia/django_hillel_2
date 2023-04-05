@@ -21,9 +21,7 @@ def author_details(request, pk):
     author = get_object_or_404(
         Author.objects.annotate(above_500_pages=above_500_pages).annotate(below_500_pages=below_500_pages),
         id=pk)
-    author_books = author.display_books()
-    return render(request, 'catalog/author_details.html', {'author': author,
-                                                           'books': author_books})
+    return render(request, 'catalog/author_details.html', {'author': author})
 
 
 def books(request):
@@ -45,9 +43,7 @@ def publishers(request):
 
 def publisher_details(request, pk):
     publisher = get_object_or_404(Publisher.objects.annotate(average_rating=Avg('books__rating')), id=pk)
-    pub_books = publisher.display_books()
-    return render(request, 'catalog/publisher_details.html', {'publisher': publisher,
-                                                              'books': pub_books})
+    return render(request, 'catalog/publisher_details.html', {'publisher': publisher})
 
 
 def stores(request):

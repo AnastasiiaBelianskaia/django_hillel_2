@@ -11,11 +11,13 @@
   <ul>
       <li>Name: {{ author.name }} </li>
       <li>Age: {{ author.age }}</li>
-      {% if books %}
-          <li>Books: {{ books }}</li>
-      {% else %}
-          <p>There are no books for this author</p>
-      {% endif %}
+      <li>Books:
+      {% for book in author.books.all %}
+         {{ book }}{% if not forloop.last %}, {% endif %}
+      {% empty %}
+         No books for this author
+      {% endfor %}
+      </li>
   </ul>
 
   <a href="{% url 'catalog:authors' %}">Go to authors list</a><br>

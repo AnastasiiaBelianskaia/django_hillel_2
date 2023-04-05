@@ -16,8 +16,7 @@ class Command(BaseCommand):
         stores_list = []
         for number in range(quantity):
             stores_list.append(Store(name=f'Store{number}'))
-        Store.objects.bulk_create(stores_list)
-        for store_num in Store.objects.values_list("id", flat=True):
-            store = Store.objects.get(id=store_num)
+        stores = Store.objects.bulk_create(stores_list)
+        for store in stores:
             store.books.set(Book.objects.values_list("id", flat=True).order_by('?')[:random.randint(0, 5)])
         self.stdout.write(f"{quantity} stores have been created in database!")
