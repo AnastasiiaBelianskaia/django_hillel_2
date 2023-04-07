@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Celery</title>
+</head>
+<body>
+  <form action="{% url 'catalog:celery' %}" method="post">
+    {% csrf_token %}
+      <p>Your timezone: {{ request.session.django_timezone }}</p>
+    {{ celery_form.as_p }}
+    <input type="submit" name="submit" value="Submit">
+</form>
+</body>
+</html>

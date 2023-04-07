@@ -1,7 +1,11 @@
 from django.db.models import Avg, Count, Max, Min, Q
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 
+from .forms import CeleryForm
 from .models import Author, Book, Publisher, Store
+from .tasks import send_email_celery
+
+common_timezones = 'Europe/Kyiv'
 
 
 def index(request):
@@ -54,3 +58,27 @@ def stores(request):
 def store_details(request, pk):
     store = get_object_or_404(Store.objects.annotate(average_price=Avg('books__price')), id=pk)
     return render(request, 'catalog/store_details.html', {'store': store})
+
+
+def set_timezone(request):
+    if request.method == 'POST':
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('catalog:celery')
+    else:
+        return render(request, 'catalog/set_timezone.html', {'timezones': common_timezones})
+
+
+def celery(request):
+    if not request.session.get('django_timezone'):
+        return redirect('catalog:set_timezone')
+    if request.method == 'POST':
+        celery_form = CeleryForm(request.POST)
+        if celery_form.is_valid():
+            email = celery_form.cleaned_data['email']
+            text = celery_form.cleaned_data['notification_text']
+            time = celery_form.cleaned_data['date_time']
+            send_email_celery.apply_async((email, text), eta=time)
+            return redirect('catalog:celery')
+    else:
+        celery_form = CeleryForm()
+    return render(request, 'catalog/form_for_notification.html', {'celery_form': celery_form})

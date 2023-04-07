@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  {% load tz %}
+{% get_current_timezone as TIME_ZONE %}
+<form action="{% url 'catalog:set_timezone' %}" method="POST">
+    {% csrf_token %}
+    <label for="timezone">Time zone: </label>
+    <select name="timezone">
+        <option value="{{ timezones }}">{{ timezones }}</option>
+    </select>
+    <input type="submit" value="Set">
+</form>
+</body>
+</html>
