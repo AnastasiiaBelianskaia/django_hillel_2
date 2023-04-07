@@ -13,4 +13,6 @@ urlpatterns = [
     path('publishers/<int:pk>/', views.publisher_details, name='publisher_details'),
     path('stores/', views.stores, name='stores'),
     path('stores/<int:pk>/', views.store_details, name='store_details'),
+    path('notification/', views.celery, name='celery'),
+    path('set_timezone/', views.set_timezone, name='set_timezone'),
 ]
