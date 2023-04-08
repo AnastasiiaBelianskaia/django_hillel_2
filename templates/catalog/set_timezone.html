@@ -11,7 +11,11 @@
     {% csrf_token %}
     <label for="timezone">Time zone: </label>
     <select name="timezone">
-        <option value="{{ timezones }}">{{ timezones }}</option>
+    {% for zone in timezones %}
+        <option value="{{ zone }}">
+            {{ zone }}
+        </option>
+    {% endfor %}
     </select>
     <input type="submit" value="Set">
 </form>

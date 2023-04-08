@@ -5,7 +5,7 @@ from .forms import CeleryForm
 from .models import Author, Book, Publisher, Store
 from .tasks import send_email_celery
 
-common_timezones = 'Europe/Kyiv'
+common_timezones = ['Europe/Kyiv', 'Europe/Helsinki', 'Etc/Greenwich', 'Europe/London']
 
 
 def index(request):
