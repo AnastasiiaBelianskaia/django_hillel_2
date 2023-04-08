@@ -4,9 +4,6 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
-now = timezone.now()
-plus_two_days = now + timedelta(days=2)
-
 
 class CeleryForm(forms.Form):
     email = forms.EmailField(label="Email",
@@ -21,6 +18,8 @@ class CeleryForm(forms.Form):
                                     input_formats=['%Y-%m-%d %H:%M:%S'])
 
     def clean_date_time(self):
+        now = timezone.now()
+        plus_two_days = now + timedelta(days=2)
         time = self.cleaned_data['date_time']
         if time < now or time > plus_two_days:
             raise ValidationError('Date should not be in past or more than two days ahead')
