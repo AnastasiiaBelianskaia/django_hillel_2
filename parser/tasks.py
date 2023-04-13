@@ -1,12 +1,13 @@
 import re
+from parser.models import AuthorOfQuote, Quote
+
+from bs4 import BeautifulSoup
 
 from celery import shared_task
 
-from parser.models import AuthorOfQuote, Quote
+from django.core.mail import send_mail
 
 import requests
-from bs4 import BeautifulSoup
-from django.core.mail import send_mail
 
 
 @shared_task
