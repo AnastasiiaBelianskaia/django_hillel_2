@@ -44,8 +44,10 @@ INSTALLED_APPS = [
 
     'django_extensions',
     'debug_toolbar',
+    'django_celery_beat',
 
     'catalog',
+    'parser',
 ]
 
 MIDDLEWARE = [

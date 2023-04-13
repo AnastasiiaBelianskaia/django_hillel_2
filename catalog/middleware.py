@@ -8,10 +8,13 @@ class TimezoneMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        request.session.save()
-        tzname = request.session.get('django_timezone')
-        if tzname:
-            timezone.activate(zoneinfo.ZoneInfo(tzname))
-        else:
-            timezone.deactivate()
+        try:
+            request.session.save()
+            tzname = request.session.get('django_timezone')
+            if tzname:
+                timezone.activate(zoneinfo.ZoneInfo(tzname))
+            else:
+                timezone.deactivate()
+        except BaseException as exception:
+            print(exception)
         return self.get_response(request)
