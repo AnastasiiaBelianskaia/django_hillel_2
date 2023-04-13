@@ -1,3 +1,4 @@
+import logging
 import zoneinfo
 
 from django.utils import timezone
@@ -15,6 +16,6 @@ class TimezoneMiddleware:
                 timezone.activate(zoneinfo.ZoneInfo(tzname))
             else:
                 timezone.deactivate()
-        except BaseException as exception:
-            print(exception)
+        except BaseException:
+            logging.exception('An exception was thrown!')
         return self.get_response(request)

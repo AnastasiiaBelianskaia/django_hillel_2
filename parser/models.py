@@ -3,9 +3,9 @@ from django.db import models
 
 class AuthorOfQuote(models.Model):
     name = models.CharField(max_length=100)
-    born_date = models.CharField(max_length=100, blank=True, null=True)
-    born_location = models.CharField(max_length=100, blank=True, null=True)
-    description = models.TextField(max_length=300, blank=True, null=True)
+    born_date = models.CharField(max_length=100, blank=True, default='')
+    born_location = models.CharField(max_length=100, blank=True, default='')
+    description = models.TextField(max_length=300, blank=True, default='')
 
     def __str__(self):
         return self.name
