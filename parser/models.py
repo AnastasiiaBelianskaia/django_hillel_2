@@ -13,7 +13,7 @@ class AuthorOfQuote(models.Model):
 
 class Quote(models.Model):
     text = models.TextField(max_length=300)
-    author = models.ForeignKey(AuthorOfQuote, on_delete=models.CASCADE, blank=True, null=True, related_name='quotes')
+    author = models.ForeignKey(AuthorOfQuote, on_delete=models.CASCADE, related_name='quotes')
 
     def __str__(self):
         return self.text
