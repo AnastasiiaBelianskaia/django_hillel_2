@@ -29,11 +29,13 @@ def quotes_parser():
             author_born_date = author_soup.find('span', class_='author-born-date').text
             author_born_location = author_soup.find('span', class_='author-born-location').text
             author_description = author_soup.find('div', class_='author-description').text.replace('\n', '')
-            first_sentences_from_description = '.'.join(re.split(r'[.]', author_description)[:5])
-            author = AuthorOfQuote.objects.get_or_create(name=author_name.text,
-                                                         born_date=author_born_date,
-                                                         born_location=author_born_location,
-                                                         description=first_sentences_from_description)
+            first_sens_from_description = '.'.join(re.split(r'[.]', author_description)[:5])
+            author, created = AuthorOfQuote.objects.get_or_create(name=author_name.text,
+                                                                  defaults={'born_date': author_born_date,
+                                                                            'born_location': author_born_location,
+                                                                            'description': first_sens_from_description
+                                                                            }
+                                                                  )
             quote = Quote(text=text_of_quote, author_id=author[0].id)
             quote.save()
             number_of_saved_quotes += 1
