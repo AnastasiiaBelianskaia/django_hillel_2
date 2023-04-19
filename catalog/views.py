@@ -1,9 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Avg, Count, Max, Min, Q
 from django.shortcuts import get_object_or_404, redirect, render
-
-from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.views import generic
 
 from .forms import CeleryForm
 from .models import Author, Book, Publisher, Store
