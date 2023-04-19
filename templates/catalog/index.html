@@ -3,12 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
 </head>
 <body>
-  <a href="{% url 'catalog:authors' %}">Go to authors list</a><br>
-  <a href="{% url 'catalog:books' %}">Go to books list</a><br>
-  <a href="{% url 'catalog:publishers' %}">Go to publishers list</a><br>
-  <a href="{% url 'catalog:stores' %}">Go to stores list</a><br>
-  <a href="{% url 'catalog:celery' %}">Create notification</a><br>
+
+  <div class="one_line">
+      <div class="catalog_main_div">
+          <a class='login_logout' href="{% url 'login' %}">Login</a>
+      </div>
+
+      <div class="catalog_main_div">
+          <a class='login_logout' href="{% url 'logout' %}">Logout</a>
+      </div>
+  </div>
+
+  <div class="catalog_main_div bg_for_books_and_notif">
+      <a class="book_links" href="{% url 'catalog:authors' %}">Go to authors list</a><br>
+      <a class="book_links" href="{% url 'catalog:books' %}">Go to books list</a><br>
+      <a class="book_links" href="{% url 'catalog:publishers' %}">Go to publishers list</a><br>
+      <a class="book_links" href="{% url 'catalog:stores' %}">Go to stores list</a><br>
+  </div>
+
+  <div class="catalog_main_div bg_for_books_and_notif">
+      <a class="notification_link" href="{% url 'catalog:celery' %}">Create notification</a><br>
+  </div>
+
 </body>
 </html>

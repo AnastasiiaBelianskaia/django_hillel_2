@@ -11,15 +11,16 @@
 </head>
 <body>
   <a href="{% url 'catalog:index' %}">Go to Main</a><br>
+  <a href="{% url 'catalog:book_create' %}">Create New Book</a><br>
 
-  <p>Number of books: {{ aggr_values.id__count }}</p>
-  <p>Average price: {{ aggr_values.price__avg|floatformat:2 }}</p>
-  <p>Max number of pages among books: {{ aggr_values.pages__max }}</p>
-  <p>Min number of pages among books: {{ aggr_values.pages__min }}</p>
+  <p>Number of books: {{ values.id__count }}</p>
+  <p>Average price: {{ values.price__avg|floatformat:2 }}</p>
+  <p>Max number of pages among books: {{ values.pages__max }}</p>
+  <p>Min number of pages among books: {{ values.pages__min }}</p>
 
   <span>All books:</span>
 
-   <table style="width:100%">
+  <table style="width:100%">
   <tr>
     <th>Name</th>
     <th>Store</th>
@@ -29,7 +30,7 @@
     <th>Rating</th>
     <th>Price</th>
   </tr>
-  {% for book in books %}
+  {% for book in object_list %}
           <tr>
               <td>
                 <a href="{% url 'catalog:book_details' pk=book.id %}">{{ book.name }}</a>
@@ -55,5 +56,22 @@
           </tr>
   {% endfor %}
 </table>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 </body>
 </html>

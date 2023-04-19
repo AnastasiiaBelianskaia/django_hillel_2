@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Author(models.Model):
@@ -30,7 +31,7 @@ class Book(models.Model):
     name = models.CharField(max_length=300)
     pages = models.IntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    rating = models.FloatField()
+    rating = models.FloatField(default=0.0)
     authors = models.ManyToManyField(Author, related_name='books')
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, blank=True, null=True, related_name='books')
     pubdate = models.DateField()
@@ -40,6 +41,9 @@ class Book(models.Model):
 
     def display_authors(self):
         return ', '.join(author.name for author in self.authors.all())
+
+    def get_absolute_url(self):
+        return reverse('catalog:book_details', args=[str(self.id)])
 
     display_authors.short_description = 'Author'
 

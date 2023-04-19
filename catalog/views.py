@@ -1,5 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Avg, Count, Max, Min, Q
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
+from django.views import generic
 
 from .forms import CeleryForm
 from .models import Author, Book, Publisher, Store
@@ -28,16 +31,39 @@ def author_details(request, pk):
     return render(request, 'catalog/author_details.html', {'author': author})
 
 
-def books(request):
-    vals = Book.objects.aggregate(Max('pages'), Min('pages'), Avg('price'), Count("id"))
-    all_books = Book.objects.prefetch_related('authors', 'stores').select_related('publisher')
-    return render(request, 'catalog/books_list.html', {'aggr_values': vals,
-                                                       'books': all_books})
+class BooksListView(generic.ListView):
+    model = Book
+    template_name = 'catalog/books_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Book.objects.prefetch_related('authors', 'stores').select_related('publisher')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['values'] = Book.objects.aggregate(Max('pages'), Min('pages'), Avg('price'), Count("id"))
+        return context
 
 
-def book_details(request, pk):
-    book = get_object_or_404(Book.objects.prefetch_related('authors').select_related('publisher'), id=pk)
-    return render(request, 'catalog/book_details.html', {'book': book})
+class BooksDetailView(generic.DetailView):
+    model = Book
+    template_name = 'catalog/book_details.html'
+
+
+class BookCreate(LoginRequiredMixin, generic.CreateView):
+    model = Book
+    fields = ['name', 'pages', 'price', 'authors', 'publisher', 'pubdate']
+    success_url = reverse_lazy('catalog:books')
+
+
+class BookUpdate(LoginRequiredMixin, generic.UpdateView):
+    model = Book
+    fields = ['name', 'pages', 'price', 'authors', 'publisher', 'pubdate']
+
+
+class BookDelete(LoginRequiredMixin, generic.DeleteView):
+    model = Book
+    success_url = reverse_lazy('catalog:books')
 
 
 def publishers(request):
