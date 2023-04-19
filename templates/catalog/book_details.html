@@ -20,6 +20,8 @@
       <li>Pubdate: {{ book.pubdate }}</li>
   </ul>
 
+  <a href="{% url 'catalog:book_update' pk=book.id %}">Update book {{ book.name }}</a><br>
+  <a href="{% url 'catalog:book_delete' pk=book.id %}">Delete book {{ book.name }}</a><br>
   <a href="{% url 'catalog:books' %}">Go to books list</a><br>
   <a href="{% url 'catalog:index' %}">Go to Main</a>
 </body>

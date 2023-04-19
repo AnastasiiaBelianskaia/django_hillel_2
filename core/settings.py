@@ -35,6 +35,9 @@ INTERNAL_IPS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'catalog',
+    'parser',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,9 +48,6 @@ INSTALLED_APPS = [
     'django_extensions',
     'debug_toolbar',
     'django_celery_beat',
-
-    'catalog',
-    'parser',
 ]
 
 MIDDLEWARE = [
@@ -126,6 +126,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static/'),
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -139,3 +142,7 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 
 # Emails
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Redirect after login and logout
+LOGIN_REDIRECT_URL = '/catalog/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
