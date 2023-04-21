@@ -12,7 +12,7 @@
 <body>
   <a href="{% url 'catalog:index' %}">Go to Main</a><br>
 
-      <p>Average authors age: {{ aggr_values.age__avg }}</p>
+      <p>Average authors age: {{ aggr_values.age__avg|floatformat:1 }}</p>
       <p>Oldest book in collection: {{ aggr_values.books__pubdate__min}}</p>
 
 

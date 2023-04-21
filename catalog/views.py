@@ -2,7 +2,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Avg, Count, Max, Min, Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views import generic
+from django.views.decorators.cache import cache_page
 
 from .forms import CeleryForm
 from .models import Author, Book, Publisher, Store
@@ -15,6 +17,7 @@ def index(request):
     return render(request, 'catalog/index.html')
 
 
+@cache_page(10)
 def authors(request):
     vals = Author.objects.aggregate(Avg('age'), Min('books__pubdate'))
     all_authors = Author.objects.prefetch_related('books')
@@ -31,10 +34,11 @@ def author_details(request, pk):
     return render(request, 'catalog/author_details.html', {'author': author})
 
 
+@method_decorator(cache_page(15), name='dispatch')
 class BooksListView(generic.ListView):
     model = Book
     template_name = 'catalog/books_list.html'
-    paginate_by = 10
+    paginate_by = 500
 
     def get_queryset(self):
         return Book.objects.prefetch_related('authors', 'stores').select_related('publisher')
